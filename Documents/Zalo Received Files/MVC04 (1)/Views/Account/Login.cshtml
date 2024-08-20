@@ -1,0 +1,119 @@
+﻿@{
+    ViewBag.Title = "Đăng nhập";
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>@ViewBag.Title</title>
+    <style>
+
+        .container {
+            background-color: #ffffff;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2);
+            max-width: 400px;
+            width: 100%;
+            box-sizing: border-box;
+        }
+
+        h2 {
+            margin-top: 0;
+            font-size: 26px;
+            color: #333;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+            .form-group label {
+                display: block;
+                margin-bottom: 8px;
+                font-weight: bold;
+                color: #555;
+            }
+
+            .form-group input {
+                width: 100%;
+                padding: 12px;
+                border: 1px solid #ddd;
+                border-radius: 8px;
+                box-sizing: border-box;
+                font-size: 16px;
+            }
+
+                .form-group input:focus {
+                    border-color: #007b00;
+                    outline: none;
+                    box-shadow: 0 0 5px rgba(0, 123, 0, 0.5);
+                }
+
+            .form-group button {
+                width: 100%;
+                padding: 12px;
+                background-color: #007b00;
+                color: #ffffff;
+                border: none;
+                border-radius: 8px;
+                cursor: pointer;
+                font-size: 18px;
+                font-weight: bold;
+            }
+
+                .form-group button:hover {
+                    background-color: #005d00;
+                }
+
+        .error-message {
+            color: red;
+            text-align: center;
+            margin-top: 15px;
+            font-size: 14px;
+        }
+
+        .login-footer {
+            margin-top: 20px;
+            text-align: center;
+        }
+
+            .login-footer a {
+                color: #007b00;
+                text-decoration: none;
+                font-weight: bold;
+            }
+
+                .login-footer a:hover {
+                    text-decoration: underline;
+                }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h2>Đăng nhập</h2>
+        <form asp-action="Login" method="post">
+            <div class="form-group">
+                <label for="username">Tài khoản:</label>
+                <input type="text" id="username" name="username" required />
+            </div>
+            <div class="form-group">
+                <label for="password">Mật khẩu:</label>
+                <input type="password" id="password" name="password" required />
+            </div>
+            <div class="form-group">
+                <button type="submit">Đăng nhập</button>
+            </div>
+            @if (ViewBag.ErrorMessage != null)
+            {
+                <div class="error-message">
+                    <p>@ViewBag.ErrorMessage</p>
+                </div>
+            }
+        </form>
+    </div>
+</body>
+</html>

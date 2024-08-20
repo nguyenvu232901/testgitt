@@ -1,0 +1,148 @@
+﻿@{
+    var product = ViewData["Product"] as tblProducts;
+    var comments = ViewData["Comments"] as List<tblNhanXet>;
+}
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, inital-scale = 1.0">
+    <title>Product Detail</title>
+    <style>
+        body {
+            font-family: Arial, Helvetica, sans-serif;
+        }
+
+        .container {
+            max-width: 960px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .product-info {
+            display: flex;
+        }
+
+        .product-image {
+            flex: 1;
+        }
+
+            .product-image img {
+                max-width: 100%;
+                height: auto;
+            }
+
+        .product-detail {
+            flex: 1;
+            padding: 20px;
+        }
+
+        .product-name {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .product-price {
+            font-size: 18px;
+            color: #007b00;
+        }
+
+        .product-description {
+            margin-top: 20px;
+        }
+
+        .add-to-cart {
+            margin-top: 20px;
+        }
+
+            .add-to-cart button {
+                padding: 10px 20px;
+                background-color: #007b00;
+                color: #ffffff;
+                border: none;
+                cursor: pointer;
+            }
+
+        .comments-section {
+            margin-top: 20px;
+            border-top: 1px dashed #ccc;
+            padding-top: 20px;
+        }
+
+        .comment-item {
+            margin-bottom: 15px;
+        }
+
+            .comment-item p {
+                margin: 5px 0;
+            }
+
+        .comment-form {
+            display: flex;
+            align-items: flex-start;
+            margin-top: 15px;
+        }
+
+            .comment-form textarea {
+                width: calc(100% - 60px); /* Trừ đi chiều rộng của nút */
+                padding: 8px;
+                margin-right: 10px;
+                border: 1px solid #ccc;
+                border-radius: 4px;
+                resize: none;
+            }
+
+            .comment-form button {
+                padding: 8px 12px;
+                background-color: #007b00;
+                color: #ffffff;
+                border: none;
+                border-radius: 4px;
+                cursor: pointer;
+                width: 50px; /* Chiều rộng của nút */
+            }
+
+                .comment-form button:hover {
+                    background-color: #005f00;
+                }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="product-info">
+            <div class="product-image">
+                <img src="@product.ImageURL" alt="Product Image" />
+                <h2 class="product-name">@product.ProductName</h2>
+                <p class="product-price">@product.ProductPrice đ</p>
+                <div class="add-to-cart">
+                    <button>Thêm vào giỏ hàng</button>
+                </div>
+            </div>
+            <div class="product-detail">
+                @if (User.Identity.IsAuthenticated)
+                {
+                    <div class="comments-section">
+                        <h3>Nhận xét</h3>
+                        <div>
+                            @foreach (var comment in comments)
+                            {
+                                <div class="comment-item">
+                                    <p><strong>@comment.tblMember.sTaiKhoan</strong>:</p>
+                                    <p>@comment.sNoidung</p>
+                                </div>
+                            }
+                        </div>
+                        <div class="comment-form">
+                            <form asp-action="AddComment" method="post">
+                                <textarea name="Content" placeholder="Thêm nhận xét của bạn..." required></textarea>
+                                <input type="hidden" name="ProductID" value="@product.ProductID" />
+                                <button type="submit">Gửi</button>
+                            </form>
+                        </div>
+                    </div>
+                }
+            </div>
+        </div>
+    </div>
+</body>
+</html>
